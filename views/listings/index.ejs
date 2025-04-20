@@ -1,0 +1,88 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+    <div class="my-3" id="filters">
+        <div class="place-filter">
+            <div class="filter">
+                <div><i class="ri-fire-fill"></i></div>
+                <p>Trending</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-hotel-bed-fill"></i></div>
+                <p>Rooms</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-building-fill"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-landscape-fill"></i></div>
+                <p>Mountains</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-school-fill"></i></div>
+                <p>Castles</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-plane-fill"></i></div>
+                <p>Near Airport</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-tent-fill"></i></div>
+                <p>Camping</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-tree-fill"></i></div>
+                <p>Forest</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-ghost-2-fill"></i></div>
+                <p>Haunted</p>
+            </div>
+            <div class="filter">
+                <div><i class="ri-ancient-gate-fill"></i></div>
+                <p>Historic</p>
+            </div>
+        </div>
+        <div class="tax-toggle">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="tax-switch">
+                <label class="form-check-label" for="tax-switch">Display Taxes</label>
+            </div>
+        </div>
+          
+    </div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mb-3">
+        <% for(listing of allListings){%>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <div class="img-cont"><img src="<%= listing.image.url %>" class="card-img-top card-efx" alt="listing_image" style="height: 20rem;"></div>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= listing.title %></h5>
+                      <p class="card-text">&#8377;<%= (listing.price).toLocaleString("en-IN") %> / night <i class="tax hide">+ 20% gst</i></p>
+                    </div>
+                  </div>
+            </a>
+        <% } %>
+    </div>
+
+    <script>
+        let taxSwitch = document.getElementById("tax-switch")
+        let taxText = document.querySelectorAll(".tax")
+        taxText.forEach((x) =>{
+            if(taxSwitch.checked){
+                x.classList.remove("hide")
+            }else{
+                x.classList.add("hide")
+            }
+        })
+        taxSwitch.addEventListener("click",()=>{
+            taxText.forEach((x) =>{
+                if(taxSwitch.checked){
+                    x.classList.remove("hide")
+                }else{
+                    x.classList.add("hide")
+                }
+            })
+        })
+    </script>
+</body>
